@@ -1,0 +1,31 @@
+Index: ../components/PEAR/Savant3/resources/Savant3_Plugin_form.php
+===================================================================
+--- ../components/PEAR/Savant3/resources/Savant3_Plugin_form.php        (revision 208)
++++ ../components/PEAR/Savant3/resources/Savant3_Plugin_form.php        (working copy)
+@@ -118,6 +118,18 @@
+        */
+
+        public $tab_base = 2;
++
++       /**
++       *
++       * Indicates if we care about tidying up the generated XHTML.
++       *
++       * @access public
++       *
++       * @var int
++       *
++       */
++
++       public $tidy_html = true;
+
+
+        /**
+@@ -311,7 +323,7 @@
+
+                        // call the method, then return the tidied-up XHTML results
+                        $xhtml = call_user_func_array(array($this, $method), $args);
+-                       return $this->_tidy($xhtml);
++                       return $this->tidy_html ? $this->_tidy($xhtml) : $xhtml;
+                }
+        }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- $Id: package.xml,v 1.4 2005/09/13 17:35:23 pmjones Exp $ -->
+<package version="1.0">
+	<name>Savant3_Plugin_Form</name>
+	<summary>A plugin set for Savant to generate forms.</summary>
+	<description>
+		This set of plugins allows you to generate standard form
+		elements manually (by calling the individual 'form*' plugins) or
+		entire forms with automatic layout (by calling the 'form' plugin
+		and using an array of element hints).  Note that this does not
+		process or populate forms; it just generates the output for
+		form elements and layout.
+	</description>
+	<maintainers>
+		<maintainer>
+			<user>pmjones</user>
+			<name>Paul M. Jones</name>
+			<email>pmjones@ciaweb.net</email>
+			<role>lead</role>
+		</maintainer>
+	</maintainers>
+	<release>
+		<version>??</version>
+		<date>2005-??-??</date>
+		<license>LGPL License</license>
+		<state>devel</state>
+		<notes>
+			* formTextarea: make sure that there are 'rows' and 'cols' values as required by the spec.  noted by Orjan Persson.
+			* formTextarea: added $rows and $cols properties to set default 'rows' and 'cols' values.
+		</notes>
+		<filelist>
+		
+			<file role="php" name="Savant3/resources/Savant3_Plugin_form.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_form_element.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_formButton.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_formCheckbox.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_formFile.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_formHidden.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_formImage.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_formPassword.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_formRadio.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_formReset.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_formSelect.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_formSubmit.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_formText.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_formTextarea.php" />
+			
+			<file role="test" name="tests/00_prepend.php" />
+			<file role="test" name="tests/eyeball_auto.php" />
+			<file role="test" name="tests/eyeball_manual.php" />
+			<file role="test" name="tests/form.phpt" />
+			<file role="test" name="tests/form_call.phpt" />
+			<file role="test" name="tests/form_freeze.phpt" />
+			<file role="test" name="tests/formButton.phpt" />
+			<file role="test" name="tests/formCheckbox.phpt" />
+			<file role="test" name="tests/formFile.phpt" />
+			<file role="test" name="tests/formHidden.phpt" />
+			<file role="test" name="tests/formImage.phpt" />
+			<file role="test" name="tests/formPassword.phpt" />
+			<file role="test" name="tests/formRadio.phpt" />
+			<file role="test" name="tests/formReset.phpt" />
+			<file role="test" name="tests/formSelect.phpt" />
+			<file role="test" name="tests/formSubmit.phpt" />
+			<file role="test" name="tests/formText.phpt" />
+			<file role="test" name="tests/formTextarea.phpt" />
+			<file role="test" name="tests/templates/footer.tpl.php" />
+			<file role="test" name="tests/templates/form_fullauto.tpl.php" />
+			<file role="test" name="tests/templates/form_semiauto.tpl.php" />
+			<file role="test" name="tests/templates/header.tpl.php" />
+
+		</filelist>
+	</release>
+</package>

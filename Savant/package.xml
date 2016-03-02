@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- $Id: package.xml,v 1.1 2004/10/04 01:45:52 pmjones Exp $ -->
+
+<package version="1.0">
+	<name>Savant</name>
+	<summary>A template engine that uses PHP for its logic and encapsulated methods for convenience.</summary>
+	<description>
+		Allows you to separate your business logic from display logic using PHP-based templates.
+
+		* It doesn't have its own template language; you write your display logic using PHP.
+		* It doesn't compile templates; they're already in PHP.
+		* It include()s your template at display() and fetch() time, so your template has access to all the Savant methods using $this->method().
+		* It has a plugin system; you can write your own custom classes, and they are loaded on-the-fly and as-needed at display time using $this->plugin().
+		* It has an output filter system; you can write your own custom classes, and they are loaded on-the-fly and as-needed at display time using the setFilter() method.
+		
+		See http://phpsavant.com/ for online documentation.
+	</description>
+	<maintainers>
+		<maintainer>
+			<user>pmjones</user>
+			<name>Paul M. Jones</name>
+			<email>pmjones@ciaweb.net</email>
+			<role>lead</role>
+		</maintainer>
+	</maintainers>
+	<release>
+		<version>1.5</version>
+		<date>2004-05-14</date>
+		<license>LGPL License</license>
+		<state>stable</state>
+		<notes>
+			* The fetch() method now pops the template off the stack when done
+			* Added setTemplate() method to set a default template file name (suggested by Ben Jones)
+			* Methods display() and fetch() honor the setTemplate() value when no template is named
+			* Added findTemplate() method to find a template path (useful for in-template include statements)
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Filter.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_trimwhitespace.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_colorizeCode.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_ahref.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkbox.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_input.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_textarea.php" />
+			<file role="doc" name="Savant/docs/README" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/5_filters.php" />
+			<file role="test" name="Savant/tests/6_paths.php" />
+			<file role="test" name="Savant/tests/test_filters/Savant_Filter_fester.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_fester.php" />
+			<file role="test" name="Savant/tests/test_templates/filters.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+		</filelist>
+	</release>
+
+<!--
+	PRIOR RELEASES.
+	
+	<release>
+		<version>1.4.1</version>
+		<date>2004-03-04</date>
+		<license>LGPL License</license>
+		<state>stable</state>
+		<notes>
+			* The addPath() method now adds ending directory separators if not present. (Thanks to Ben Jones for reporting this bug.)
+			* The constructor now does addPath() on the current directory when [plugin|filter|template]_path is not set by the user (this maintains BC with versions 1.3 and earlier).
+			* In the test scripts, removed trailing slashes from path configurations to test the addPath() add-trailing-separator functionality.
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Filter.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_trimwhitespace.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_colorizeCode.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_ahref.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkbox.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_input.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_textarea.php" />
+			<file role="doc" name="Savant/docs/README" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/5_filters.php" />
+			<file role="test" name="Savant/tests/6_paths.php" />
+			<file role="test" name="Savant/tests/test_filters/Savant_Filter_fester.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_fester.php" />
+			<file role="test" name="Savant/tests/test_templates/filters.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>1.4</version>
+		<date>2004-03-02</date>
+		<license>LGPL License</license>
+		<state>stable</state>
+		<notes>
+			* You can now specify multple paths for plugins, filters, and templates.  Do so at construction-time with an array for (e.g.) the 'plugin_path' key.
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Filter.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_trimwhitespace.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_colorizeCode.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_ahref.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkbox.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_input.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_textarea.php" />
+			<file role="doc" name="Savant/docs/README" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/5_filters.php" />
+			<file role="test" name="Savant/tests/6_paths.php" />
+			<file role="test" name="Savant/tests/test_filters/Savant_Filter_fester.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_fester.php" />
+			<file role="test" name="Savant/tests/test_templates/filters.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>1.3</version>
+		<date>2004-01-11</date>
+		<license>LGPL License</license>
+		<state>stable</state>
+		<notes>
+			* All call-time pass-by-reference uses in call_user_func() have been removed (all were in _applyFilters(), thanks to Daniel Ferreira (VemConcursos.com) for the patch)
+			* New plugin: checkbox (a single HTML form checkbox element)
+			* New plugin: input (generic HTML form input element)
+			* New plugin: textarea (HTML textarea element)
+			* Filter colorizeCode no longer doubles-up on code tags
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Filter.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_trimwhitespace.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_colorizeCode.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_ahref.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkbox.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_input.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_textarea.php" />
+			<file role="doc" name="Savant/docs/README" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/5_filters.php" />
+			<file role="test" name="Savant/tests/test_filters/Savant_Filter_fester.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_fester.php" />
+			<file role="test" name="Savant/tests/test_templates/filters.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>1.2</version>
+		<date>2003-12-11</date>
+		<license>LGPL License</license>
+		<state>stable</state>
+		<notes>
+			* You can now successfully assign a named 'null' token; e.g., assign('varname', null)
+			* $_dir_sep property now defaults to the DIRECTORY_SEPARATOR constant set by PHP
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Filter.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_trimwhitespace.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_colorizeCode.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_ahref.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="doc" name="Savant/docs/README" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/5_filters.php" />
+			<file role="test" name="Savant/tests/test_filters/Savant_Filter_fester.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_fester.php" />
+			<file role="test" name="Savant/tests/test_templates/filters.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>1.1</version>
+		<date>2003-11-11</date>
+		<license>LGPL License</license>
+		<state>stable</state>
+		<notes>
+			* The getTokens() method now allows you to specify a specific token to get, and throws an error if that token does not exist.
+			* Added output filter "colorizeCode" to apply PHP's highlight_string() function to text between &lt;code&gt; tags.
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Filter.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_trimwhitespace.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_colorizeCode.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_ahref.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="doc" name="Savant/docs/README" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/5_filters.php" />
+			<file role="test" name="Savant/tests/test_filters/Savant_Filter_fester.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_fester.php" />
+			<file role="test" name="Savant/tests/test_templates/filters.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>1.0</version>
+		<date>2003-10-21</date>
+		<license>LGPL License</license>
+		<state>stable</state>
+		<notes>
+			* Updated comments in Savant.php
+			* A couple of Savant methods now use $this->_fileExists() instead of file_exists() and is_readable()
+			* getTokens() now sorts alphabetically by token name before returning
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Filter.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_trimwhitespace.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_ahref.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="doc" name="Savant/docs/README" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/5_filters.php" />
+			<file role="test" name="Savant/tests/test_filters/Savant_Filter_fester.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_fester.php" />
+			<file role="test" name="Savant/tests/test_templates/filters.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>0.8.2</version>
+		<date>2003-10-10</date>
+		<license>LGPL License</license>
+		<state>beta</state>
+		<notes>
+			* Ian White noted that assignRef() and assignObject() references point to the Savant tokens array, not the source variable from the logic script.  Fixed it so that references now point to the original assigned variable.
+			* Removed "getSavantVars()" hook when assigning an object by copy using assign().
+			* The display() and fetch() methods no longer accept substitution tokens (this is due to fixing the references problem noted above).
+			* Added getTokens() method to Savant
+			* Changed unit tests to use getTokens() method intead of _tokens property
+			* Changed unit test 1_assign.php to check for references being changed from a template
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Filter.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_trimwhitespace.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_ahref.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="doc" name="Savant/docs/README" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/5_filters.php" />
+			<file role="test" name="Savant/tests/test_filters/Savant_Filter_fester.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_fester.php" />
+			<file role="test" name="Savant/tests/test_templates/filters.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>0.8.1</version>
+		<date>2003-10-02</date>
+		<license>LGPL License</license>
+		<state>beta</state>
+		<notes>
+			* note from Jeffrey Sarnoff to remove ampersands from all test files to avoid call-time reference notices
+			* note from Jeffrey Sarnoff to change &amp;&amp; to || when checking isset() and is_object() for call-as-instance plugins and filters (avoids "undefined index" notices)
+			* note from Jeffrey Sarnoff to change &amp;$savant to &amp;$this (calling filters as instance now works properly)
+			* changed filter and plugin file checking to use $this->_fileExists()
+			* fixed bug where display() does not return PEAR_Error when template not found (added a return command)
+			* added separate test filter template (not reusing plugin template for testing any more)
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Filter.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_trimwhitespace.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_ahref.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/5_filters.php" />
+			<file role="test" name="Savant/tests/test_filters/Savant_Filter_fester.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_fester.php" />
+			<file role="test" name="Savant/tests/test_templates/filters.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>0.8</version>
+		<date>2003-09-29</date>
+		<license>LGPL License</license>
+		<state>beta</state>
+		<notes>
+			* No bugs noted in latest alpha release, upgrading to beta now that we are feature-complete
+			* Removed in-package documentation in favor of the website, phpsavant.com
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Filter.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_trimwhitespace.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_ahref.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/5_filters.php" />
+			<file role="test" name="Savant/tests/test_filters/Savant_Filter_fester.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_fester.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>0.7</version>
+		<date>2003-09-21</date>
+		<license>LGPL License</license>
+		<state>alpha</state>
+		<notes>
+			* added support for output filters
+			* corrected the error codes returned by plugin() and splugin()
+			* reorganized methods so that all template stuff is together, all plugin stuff is together, etc.
+			* made fetch() the main parsing method instead of display()
+			* minor changes to how token substitutions and template output are handled internally
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Filter.php" />
+			<file role="php" name="Savant/filters/Savant_Filter_trimwhitespace.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_ahref.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="doc" name="Savant/docs/fester.jpg" />
+			<file role="doc" name="Savant/docs/package.xml" />
+			<file role="doc" name="Savant/docs/package_dummy.xml" />
+			<file role="doc" name="Savant/docs/Savant.html" />
+			<file role="doc" name="Savant/docs/Savant.wiki.txt" />
+			<file role="doc" name="Savant/docs/stylesheet.css" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/5_filters.php" />
+			<file role="test" name="Savant/tests/test_filters/Savant_Filter_fester.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_fester.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>0.6.2</version>
+		<date>2003-09-08</date>
+		<license>LGPL License</license>
+		<state>alpha</state>
+		<notes>
+			* now extends the PEAR object (so you can use setErrorHandling() on just the Savant object)
+			* uses $this->throwError() instead of PEAR::throwError() now
+			* patch from Jeffrey Sarnoff to add an isset() check when checking if there's an instance of a plugin obect in the ::splugin() method
+			* note from Jeffrey Sarnoff to pass $whatever instead of &amp;$whatever in the test files when the called method uses a reference as a param
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_ahref.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="doc" name="Savant/docs/fester.jpg" />
+			<file role="doc" name="Savant/docs/package.xml" />
+			<file role="doc" name="Savant/docs/package_dummy.xml" />
+			<file role="doc" name="Savant/docs/Savant.html" />
+			<file role="doc" name="Savant/docs/Savant.wiki.txt" />
+			<file role="doc" name="Savant/docs/stylesheet.css" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_fester.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>0.6.1</version>
+		<date>2003-08-30</date>
+		<license>LGPL License</license>
+		<state>alpha</state>
+		<notes>
+			* added some error codes
+			* made error codes sequential
+			* forces constructor error code options to be integer
+			* added a directory-separator property (Ben Jones)
+			* forced directory separator suffixing to template_path and plugin_path (Ben Jones)
+			* added 'file' and 'line' keys to all PEAR_Error userinfo properties
+			* added an "ahref" plugin
+			* other miscllaneous minor fixes
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_ahref.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="doc" name="Savant/docs/fester.jpg" />
+			<file role="doc" name="Savant/docs/package.xml" />
+			<file role="doc" name="Savant/docs/package_dummy.xml" />
+			<file role="doc" name="Savant/docs/Savant.html" />
+			<file role="doc" name="Savant/docs/Savant.wiki.txt" />
+			<file role="doc" name="Savant/docs/stylesheet.css" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_fester.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>0.6</version>
+		<date>2003-08-27</date>
+		<license>LGPL License</license>
+		<state>alpha</state>
+		<notes>
+			* patch from Josh Eichorn to remove unneeded calls-by-reference
+			* made changes noted by Ben Jones in the "how to write a plugin" HTML docs
+			* lots of little changes to inline and HTML documentation
+			* updated the "assign" unit test (still not using phpUnit, even though I should)
+			* changed the way Savant determines whether to call plugin as static or as object
+			*   i'm pretty sure it's backwards-compatible
+			*   _plugin_obj property to hold on to instantiated plugin objects
+			* plugin calls by instance are now persisent within each Savant instance
+			* added "fester" plugin to test plugin persistence
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="doc" name="Savant/docs/package.xml" />
+			<file role="doc" name="Savant/docs/package_dummy.xml" />
+			<file role="doc" name="Savant/docs/Savant.html" />
+			<file role="doc" name="Savant/docs/Savant.wiki.txt" />
+			<file role="doc" name="Savant/docs/stylesheet.css" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_fester.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>0.5</version>
+		<date>2003-08-15</date>
+		<license>LGPL License</license>
+		<state>alpha</state>
+		<notes>
+			* added plugin mapping
+			* 	_plugin_map property to track source and target
+			*   mapPlugin() method to add to the mappings
+			*   splugin() (and therefore plugin() too) check for plugin mapping
+			*   _loadPlugin() checks for plugin mapping
+			* added new default plugin for images
+			* updated inline API documentation
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_image.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="doc" name="Savant/docs/package.xml" />
+			<file role="doc" name="Savant/docs/package_dummy.xml" />
+			<file role="doc" name="Savant/docs/Savant.html" />
+			<file role="doc" name="Savant/docs/Savant.wiki.txt" />
+			<file role="doc" name="Savant/docs/stylesheet.css" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>0.4.1</version>
+		<date>2003-08-08</date>
+		<license>LGPL License</license>
+		<state>alpha</state>
+		<notes>
+			* forgot to include the base plugin class in package.xml
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/Plugin.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="doc" name="Savant/docs/package.xml" />
+			<file role="doc" name="Savant/docs/package_dummy.xml" />
+			<file role="doc" name="Savant/docs/Savant.html" />
+			<file role="doc" name="Savant/docs/Savant.wiki.txt" />
+			<file role="doc" name="Savant/docs/stylesheet.css" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>0.4</version>
+		<date>2003-08-08</date>
+		<license>LGPL License</license>
+		<state>alpha</state>
+		<notes>
+			* changed the name from Dummy to Savant 
+			* no more _refs or _vars, they're all in _tokens now
+			*   assign(), assignRef(), and assignObject() still work the same
+			*   no more _conflict() checks or "conflicting vars/refs" errors
+			* completely redone plugin system
+			*   no more factory action modes as a result
+			*   no more eval() of class code
+			*   loads plugins as they are called in the template, not all at once
+			*   uses plugin objects and a single main plugin class
+			*   this allows direct extension of the Savant and Savant_Plugin objects
+			*   new call to display plugin results: $this->plugin('plugin', arg, arg ...)
+			*   new call to return plugin results: $this->splugin('plugin', arg, arg ...)
+		</notes>
+		<filelist>
+			<file role="php" name="Savant.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_checkboxes.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_cycle.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_dateformat.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_javascript.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_modify.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_options.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_radios.php" />
+			<file role="php" name="Savant/plugins/Savant_Plugin_stylesheet.php" />
+			<file role="doc" name="Savant/docs/package.xml" />
+			<file role="doc" name="Savant/docs/package_dummy.xml" />
+			<file role="doc" name="Savant/docs/Savant.html" />
+			<file role="doc" name="Savant/docs/Savant.wiki.txt" />
+			<file role="doc" name="Savant/docs/stylesheet.css" />
+			<file role="test" name="Savant/tests/1_assign.php" />
+			<file role="test" name="Savant/tests/2_display.php" />
+			<file role="test" name="Savant/tests/3_fetch.php" />
+			<file role="test" name="Savant/tests/4_plugins.php" />
+			<file role="test" name="Savant/tests/test_plugins/Savant_Plugin_cycle.php" />
+			<file role="test" name="Savant/tests/test_templates/test.tpl.php" />
+			<file role="test" name="Savant/tests/test_templates/plugins.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>0.3</version>
+		<date>2003-08-01</date>
+		<license>LGPL License</license>
+		<state>alpha</state>
+		<notes>
+			* release 0.2 had some critical bugs, especially in assign(). sorry about that.  :-(
+			* release packages have not truly been "stable", reclassifying as "beta"
+			* added simple regression testing to spot-check, by-hand, if things are working
+			* assign() now actually works.  error checking happens at a different point in the method now.
+			* display() unsets any _vars[] or _refs[] to 'this' so the class itself does not get overwritten.
+			* display uses extract() for refs now instead of foreach
+			* added _template_stack array and _push/_pop/_getTemplate() functions to handle file tracking
+			* added DUMMY_FACTORY_* flags to control factory actions
+			* factory() now allows a code-only return, a define-class action, and a define-and-return action
+			* factory() now does not honor DUMMY_DEBUG, use DUMMY_FACTORY_GENERATE instead
+			* simplified error-checking and the error codes returned by methods
+		</notes>
+		<filelist>
+			<file role="php" name="Dummy.php" />
+			<file role="doc" name="Dummy/docs/Dummy.html" />
+			<file role="doc" name="Dummy/docs/Dummy.wiki.txt" />
+			<file role="doc" name="Dummy/docs/package.xml" />
+			<file role="php" name="Dummy/plugins/checkbox.dummy.php" />
+			<file role="php" name="Dummy/plugins/cycle.dummy.php" />
+			<file role="php" name="Dummy/plugins/dateformat.dummy.php" />
+			<file role="php" name="Dummy/plugins/javascript.dummy.php" />
+			<file role="php" name="Dummy/plugins/modify.dummy.php" />
+			<file role="php" name="Dummy/plugins/options.dummy.php" />
+			<file role="php" name="Dummy/plugins/radio.dummy.php" />
+			<file role="php" name="Dummy/plugins/stylesheet.dummy.php" />
+			<file role="test" name="Dummy/tests/0_factory.php" />
+			<file role="test" name="Dummy/tests/1_assign.php" />
+			<file role="test" name="Dummy/tests/2_display.php" />
+			<file role="test" name="Dummy/tests/3_fetch.php" />
+			<file role="test" name="Dummy/tests/test_plugins/cycle.dummy.php" />
+			<file role="test" name="Dummy/tests/test_templates/test.tpl.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>0.2</version>
+		<date>2003-07-29</date>
+		<license>LGPL License</license>
+		<state>alpha</state>
+		<notes>
+			* _conflict() now correctly detects _vars and _refs conclicts
+			* display() now uses $this->_template_path on include($_f_i_l_e_)
+			* display() and fetch() check if template file_exists() and is_readable()
+			* added error code and flag constants
+			* added error codes to all PEAR_Error returns
+			* added error message array for localization
+			* PEAR_Error returns now use the localized error messages
+			* added debug flag parameter to factory()
+			* factory() now outputs Dummy_Template code when in debug mode
+			* updated comments in Dummy and in plugins
+			* include basic HTML documentation with the class and Wiki text source
+		</notes>
+		<filelist>
+			<file role="php" name="Dummy.php" />
+			<file role="doc" name="Dummy/docs/Dummy.html" />
+			<file role="doc" name="Dummy/docs/Dummy.wiki.txt" />
+			<file role="doc" name="Dummy/docs/package.xml" />
+			<file role="php" name="Dummy/plugins/checkbox.dummy.php" />
+			<file role="php" name="Dummy/plugins/cycle.dummy.php" />
+			<file role="php" name="Dummy/plugins/dateformat.dummy.php" />
+			<file role="php" name="Dummy/plugins/javascript.dummy.php" />
+			<file role="php" name="Dummy/plugins/modify.dummy.php" />
+			<file role="php" name="Dummy/plugins/options.dummy.php" />
+			<file role="php" name="Dummy/plugins/radio.dummy.php" />
+			<file role="php" name="Dummy/plugins/stylesheet.dummy.php" />
+		</filelist>
+	</release>
+	
+	<release>
+		<version>0.1</version>
+		<date>2003-07-28</date>
+		<license>LGPL License</license>
+		<state>alpha</state>
+		<notes>Initial release.</notes>
+		<filelist>
+			<file role="php" name="Dummy.php"/>
+			<file role="php" name="Dummy/plugins/checkbox.dummy.php"/>
+			<file role="php" name="Dummy/plugins/cycle.dummy.php"/>
+			<file role="php" name="Dummy/plugins/dateformat.dummy.php"/>
+			<file role="php" name="Dummy/plugins/javascript.dummy.php"/>
+			<file role="php" name="Dummy/plugins/modify.dummy.php"/>
+			<file role="php" name="Dummy/plugins/options.dummy.php"/>
+			<file role="php" name="Dummy/plugins/radio.dummy.php"/>
+			<file role="php" name="Dummy/plugins/stylesheet.dummy.php"/>
+		</filelist>
+	</release>
+-->
+
+</package>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- $Id: package.xml,v 1.24 2006/01/01 17:46:46 pmjones Exp $ -->
+
+<package version="1.0">
+	<name>Savant2</name>
+	<summary>A template system that uses PHP for its logic and encapsulated methods for convenience.</summary>
+	<description>
+		Allows you to separate your business logic ("model" and "controller") from display logic ("view") using PHP-based templates.
+
+		* It doesn't have its own template language; you write your display logic using PHP.
+		* It doesn't compile templates; they're already in PHP.  If you like, you may pass in a custom compiler object to compile your template source to PHP.
+		* It include()s your template at display() and fetch() time, so your template has access to all the Savant2 properties and methods using $this->property and $this->method().
+		* It has a plugin system; you can write your own custom classes, and they are loaded on-the-fly and as-needed at display time using $this->plugin().
+		* It has an output filter system; you can write your own custom classes, and they are loaded on-the-fly and as-needed at display time using the loadFilter() method.
+		
+		See http://phpsavant.com/ for online documentation.
+	</description>
+	<maintainers>
+		<maintainer>
+			<user>pmjones</user>
+			<name>Paul M. Jones</name>
+			<email>pmjones@ciaweb.net</email>
+			<role>lead</role>
+		</maintainer>
+	</maintainers>
+	<release>
+		<version>2.4.3</version>
+		<date>2006-03-05</date>
+		<license>LGPL License</license>
+		<state>stable</state>
+		<notes>
+			* typo bugfix in constructor; changed setAutoload($config['autload']) to $config['autoload'].  Thanks, David Mytton.
+		</notes>
+		<filelist>
+			<file role="php" name="Savant2.php" />
+			<file role="php" name="Savant2/Compiler.php" />
+			<file role="php" name="Savant2/Error.php" />
+			<file role="php" name="Savant2/Filter.php" />
+			<file role="php" name="Savant2/Plugin.php" />
+			<file role="php" name="Savant2/PHPCodeAnalyzer.php" />
+			<file role="php" name="Savant2/Savant2_Compiler_basic.php" />
+			<file role="php" name="Savant2/Savant2_Error_exception.php" />
+			<file role="php" name="Savant2/Savant2_Error_pear.php" />
+			<file role="php" name="Savant2/Savant2_Error_stack.php" />
+			<file role="php" name="Savant2/Savant2_Filter_colorizeCode.php" />
+			<file role="php" name="Savant2/Savant2_Filter_trimwhitespace.php" />
+			<file role="php" name="Savant2/Savant2_Plugin_ahref.php" />
+			<file role="php" name="Savant2/Savant2_Plugin_checkbox.php" />
+			<file role="php" name="Savant2/Savant2_Plugin_cycle.php" />
+			<file role="php" name="Savant2/Savant2_Plugin_dateformat.php" />
+			<file role="php" name="Savant2/Savant2_Plugin_form.php" />
+			<file role="php" name="Savant2/Savant2_Plugin_image.php" />
+			<file role="php" name="Savant2/Savant2_Plugin_input.php" />
+			<file role="php" name="Savant2/Savant2_Plugin_javascript.php" />
+			<file role="php" name="Savant2/Savant2_Plugin_modify.php" />
+			<file role="php" name="Savant2/Savant2_Plugin_options.php" />
+			<file role="php" name="Savant2/Savant2_Plugin_radios.php" />
+			<file role="php" name="Savant2/Savant2_Plugin_stylesheet.php" />
+			<file role="php" name="Savant2/Savant2_Plugin_textarea.php" />
+			<file role="test" name="Savant2/tests/1_assign.php" />
+			<file role="test" name="Savant2/tests/2_display.php" />
+			<file role="test" name="Savant2/tests/3_fetch.php" />
+			<file role="test" name="Savant2/tests/4_plugins.php" />
+			<file role="test" name="Savant2/tests/5_filters.php" />
+			<file role="test" name="Savant2/tests/6_paths.php" />
+			<file role="test" name="Savant2/tests/7_include.php" />
+			<file role="test" name="Savant2/tests/8_extend.php" />
+			<file role="test" name="Savant2/tests/9_errors.php" />
+			<file role="test" name="Savant2/tests/a_classExists.php" />
+			<file role="test" name="Savant2/tests/compile.php" />
+			<file role="test" name="Savant2/tests/form.php" />
+			<file role="test" name="Savant2/tests/form2.php" />
+			<file role="test" name="Savant2/tests/resources/Savant2_Filter_fester.php" />
+			<file role="test" name="Savant2/tests/resources/Savant2_Plugin_cycle2.php" />
+			<file role="test" name="Savant2/tests/resources/Savant2_Plugin_example_extend.php" />
+			<file role="test" name="Savant2/tests/resources/Savant2_Plugin_example.php" />
+			<file role="test" name="Savant2/tests/resources/Savant2_Plugin_fester.php" />
+			<file role="test" name="Savant2/tests/resources/savant.gif" />
+			<file role="test" name="Savant2/tests/templates/assign.tpl.php" />
+			<file role="test" name="Savant2/tests/templates/compile.tpl.php" />
+			<file role="test" name="Savant2/tests/templates/compile_bad.tpl.php" />
+			<file role="test" name="Savant2/tests/templates/extend.tpl.php" />
+			<file role="test" name="Savant2/tests/templates/filters.tpl.php" />
+			<file role="test" name="Savant2/tests/templates/footer.tpl.php" />
+			<file role="test" name="Savant2/tests/templates/form.tpl.php" />
+			<file role="test" name="Savant2/tests/templates/form2.tpl.php" />
+			<file role="test" name="Savant2/tests/templates/header.tpl.php" />
+			<file role="test" name="Savant2/tests/templates/main.tpl.php" />
+			<file role="test" name="Savant2/tests/templates/plugins.tpl.php" />
+			<file role="test" name="Savant2/tests/templates/test.tpl.php" />
+		</filelist>
+	</release>
+</package>

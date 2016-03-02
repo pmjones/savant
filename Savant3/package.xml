@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- $Id: package.xml,v 1.19 2006/01/01 18:31:00 pmjones Exp $ -->
+<package version="1.0">
+	<name>Savant3</name>
+	<summary>A PHP5 template system that uses PHP for its logic; provides path searching, plugins, filters, and an optional compiler system.</summary>
+	<description>
+		Savant3 is an object-oriented system to help keep manipulation
+		logic ("model" or "controller" scripts) separate from display
+		logic ("view" scripts) using PHP-based templates.  Savant3 is
+		E_STRICT compliant for PHP5, provides a plugin model for
+		convenience methods, supports output filter callbacks, allows
+		for custom compilers, and provides path searching for themed
+		(skinned) applications.
+	</description>
+	<maintainers>
+		<maintainer>
+			<user>pmjones</user>
+			<name>Paul M. Jones</name>
+			<email>pmjones@ciaweb.net</email>
+			<role>lead</role>
+		</maintainer>
+	</maintainers>
+	<release>
+		<version>3.0.0</version>
+		<date>2006-01-01</date>
+		<license>LGPL License</license>
+		<state>stable</state>
+		<notes>
+			* Plugin htmlAttribs no longer renders a key when its value
+			is null.
+			
+			* Removed the deprecated _() method; use eprint() instead.
+			
+			* Added "avoidance" code to __call() and eprint() so they
+			don't use call_user_func_array() as much; thanks to Andreas
+			Korthaus for profiling the code and finding out how slow
+			call_user_func_array() can be.
+			
+			* Added setAutoload() method to tell Savant whether or not
+			to use __autoload() when checking class_exists() on plugins,
+			filters, etc.  All class_exists() calls now honor that
+			setting (which is false by default).  Thanks to
+			Felix-Gabriel Gangu, David Mytton, and Ian Eure for their
+			discovery and discussion of the problem.
+			
+			* Fixed bugs in stream support due to improper strpos() 
+			param order.  Thanks, Antti Holvikari.
+		</notes>
+		<filelist>
+		
+			<file role="php" name="Savant3.php">
+				<replace from="@package_version@" to="version" type="package-info" />
+			</file>
+			
+			<file role="php" name="Savant3/Error.php" />
+			<file role="php" name="Savant3/Exception.php" />
+			<file role="php" name="Savant3/Filter.php" />
+			<file role="php" name="Savant3/Plugin.php" />
+			
+			<file role="php" name="Savant3/resources/Savant3_Filter_trimwhitespace.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_ahref.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_date.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_htmlAttribs.php" />
+			<file role="php" name="Savant3/resources/Savant3_Plugin_image.php" />
+			
+			<file role="test" name="Savant3/tests/00_prepend.php" />
+			<file role="test" name="Savant3/tests/01_assign.phpt" />
+			<file role="test" name="Savant3/tests/02_output.phpt" />
+			<file role="test" name="Savant3/tests/03_filters.phpt" />
+			<file role="test" name="Savant3/tests/04_plugins_ahref.phpt" />
+			<file role="test" name="Savant3/tests/04_plugins_date.phpt" />
+			<file role="test" name="Savant3/tests/04_plugins_fester.phpt" />
+			<file role="test" name="Savant3/tests/04_plugins_image.phpt" />
+			<file role="test" name="Savant3/tests/05_errors.phpt" />
+			<file role="test" name="Savant3/tests/06_includes.phpt" />
+			<file role="test" name="Savant3/tests/07_escape.phpt" />
+			<file role="test" name="Savant3/tests/08_autoload.phpt" />
+			
+			<file role="test" name="Savant3/tests/resources/savant.gif" />
+			<file role="test" name="Savant3/tests/resources/Savant3_Plugin_fester.php" />
+			
+			<file role="test" name="Savant3/tests/templates/02_output.tpl.php" />
+			<file role="test" name="Savant3/tests/templates/03_filters.tpl.php" />
+			<file role="test" name="Savant3/tests/templates/04_plugins_ahref.tpl.php" />
+			<file role="test" name="Savant3/tests/templates/04_plugins_date.tpl.php" />
+			<file role="test" name="Savant3/tests/templates/04_plugins_fester.tpl.php" />
+			<file role="test" name="Savant3/tests/templates/04_plugins_form.tpl.php" />
+			<file role="test" name="Savant3/tests/templates/04_plugins_image.tpl.php" />
+			<file role="test" name="Savant3/tests/templates/06_includes.tpl.php" />
+			<file role="test" name="Savant3/tests/templates/07_escape.tpl.php" />
+			<file role="test" name="Savant3/tests/templates/footer.tpl.php" />
+			<file role="test" name="Savant3/tests/templates/header.tpl.php" />
+			
+		</filelist>
+	</release>
+</package>
